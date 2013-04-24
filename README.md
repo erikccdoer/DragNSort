@@ -1,3 +1,5 @@
+## Demo:
+	[http://jsdo.it/Erik/uArR](http://jsdo.it/Erik/uArR)
 ## Dependency:
     [Hammer.js](http://eightmedia.github.io/hammer.js/)
 
