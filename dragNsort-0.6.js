@@ -234,7 +234,7 @@
             for(var i=0; i<totalChild; i++){
                 for(var j=i+1; j<totalChild; j++){
 
-                    if(rgProp[i].x > rgProp[j].x || rgProp[i].y > rgProp[j].y){
+                    if( (rgProp[i].y > rgProp[j].y) || (rgProp[i].x > rgProp[j].x && rgProp[i].y == rgProp[j].y) ){
 
                         temp = childNodes[j];
                         childNodes[j] = childNodes[i];

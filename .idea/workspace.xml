@@ -20,10 +20,10 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="dragNsort.js" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/dragNsort.js">
+      <file leaf-file-name="dragNsort.min.js" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/dragNsort.min.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="402" column="0" selection-start="13330" selection-end="13330" vertical-scroll-proportion="0.8484849">
+            <state line="0" column="3279" selection-start="3279" selection-end="3279" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -32,16 +32,7 @@
       <file leaf-file-name="dragNsort-0.6.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/dragNsort-0.6.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="241" column="0" selection-start="0" selection-end="13357" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="dragNsort.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/dragNsort.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="26" selection-start="608" selection-end="608" vertical-scroll-proportion="-11.25">
+            <state line="228" column="58" selection-start="7498" selection-end="7498" vertical-scroll-proportion="-3.8076923">
               <folding />
             </state>
           </provider>
@@ -57,14 +48,15 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
+        <option value="$PROJECT_DIR$/dragNsort.js" />
         <option value="$PROJECT_DIR$/dragNsort.html" />
         <option value="$PROJECT_DIR$/dragNsort-0.6.js" />
-        <option value="$PROJECT_DIR$/dragNsort.js" />
+        <option value="$PROJECT_DIR$/dragNsort.min.js" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="700" />
+    <option name="x" value="367" />
     <option name="y" value="22" />
     <option name="width" value="2085" />
     <option name="height" value="1058" />
@@ -123,29 +115,55 @@
     <property name="WebServerToolWindowFactoryState" value="true" />
     <property name="options.lastSelected" value="editing.templates" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="options.searchVisible" value="true" />
     <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
+  </component>
+  <component name="PublishConfig">
+    <servers>
+      <server id="682b41ea-2771-464b-b5a8-33e58cc7a952">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" />
+          </mappings>
+        </serverdata>
+      </server>
+      <server id="ad807c84-8fba-4e62-b064-1ec2c16400f3">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" />
+          </mappings>
+        </serverdata>
+      </server>
+    </servers>
   </component>
   <component name="RunManager">
+    <configuration default="true" type="JavascriptDebugSession" factoryName="Local">
+      <JSDebuggerConfigurationSettings>
+        <option name="engineId" />
+        <option name="fileUrl" />
+      </JSDebuggerConfigurationSettings>
+      <method />
+    </configuration>
     <list size="0" />
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
+      <changelist id="e5a572c3-faf0-4cc1-b1a3-6867b7ad6445" name="Default" comment="" />
       <created>1366792314131</created>
       <updated>1366792314131</updated>
     </task>
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="700" y="22" width="2085" height="1058" extended-state="0" />
+    <frame x="367" y="22" width="2085" height="1058" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977587" sideWeight="0.4978355" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977587" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24332978" sideWeight="0.38634047" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32924226" sideWeight="0.6625892" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19372241" sideWeight="0.66275346" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19568416" sideWeight="0.66275346" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3991462" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.26845637" sideWeight="0.19210246" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.33724654" sideWeight="0.310032" order="10" side_tool="true" content_ui="tabs" />
@@ -218,9 +236,9 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/dragNsort.html">
+    <entry file="file://$PROJECT_DIR$/dragNsort.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="26" selection-start="608" selection-end="608" vertical-scroll-proportion="-11.25">
+        <state line="402" column="0" selection-start="13330" selection-end="13330" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -234,7 +252,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/dragNsort.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="402" column="0" selection-start="13330" selection-end="13330" vertical-scroll-proportion="0.8484849">
+        <state line="387" column="0" selection-start="13094" selection-end="13094" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dragNsort-0.6.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="228" column="58" selection-start="7498" selection-end="7498" vertical-scroll-proportion="-3.8076923">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dragNsort.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="3279" selection-start="3279" selection-end="3279" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
