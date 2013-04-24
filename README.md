@@ -35,7 +35,11 @@ You can change the default settings by adding an second argument with options
 
 Example:
 ```javascript
-var mysortable = DragNSort.horizontally("contianer",{margins:[0,10,10,0]}, function(data){
+var mysortable = DragNSort.horizontally(
+	"contianer",
+	{
+		margins:[0,10,10,0]	
+	}, function(data){
 	console.log("callback.data",data.elements);
 });
 ```
