@@ -42,29 +42,7 @@
 //                        });
 
 */
-
-    var DragNSort = {
-
-        horizontally: function(elem, param1, param2)
-        {
-            if(typeof(param1) === "function"){
-                return TouchMovingGrids(elem, null,param1);
-            }
-            else{
-                return TouchMovingGrids(elem,param1,param2);
-            }
-
-        }
-
-    }
-
-
-    function TouchMovingGrids(elem, _options ,callback){
-
-        var TOP = 0,
-            RIGHT = 1,
-            BOTTOM = 2,
-            LEFT = 3;
+    function TouchMovingGrids(elem, callback){
 
         var gridStyle = {
                 position : "absolute"
@@ -77,7 +55,7 @@
                 draggingClassName : "dragging",
                 translateSpeed: 300,
                 collideOffsetPx: -60,
-                margins: [0,0, 0, 0]
+                margins: [0,10]
             },
             doc = document,
             container = doc.getElementById(elem),
@@ -89,7 +67,7 @@
                 }
                 return temp;
             })(),
-            containerRect,
+            containerRect = container.getBoundingClientRect(),
             totalChild = childNodes.length,
             rgProp = new Array(totalChild),
             hammer, draggingTarget, draggingTrgtIndex, dragging, draggingTrgtXPos, draggingTrgtYPos;
@@ -110,21 +88,24 @@
             }
         };
 
-        for(var key in _options){
-            options[key] = _options[key];
-        }
-
         function init(){
 
-            /*var nodeRect;
+//            var nodeRect;
             for(var i=0; i<totalChild; i++){
-                nodeRect = childNodes[i].getBoundingClientRect();
+//                nodeRect = childNodes[i].getBoundingClientRect();
+//                rgProp[i] = {
+//                    x: !i ? options.margins[0] : rgProp[i-1].x + rgProp[i-1].width + options.margins[0] + options.margins[1],
+//                    width: nodeRect.right - nodeRect.left,
+//                    y:0
+//                };
                 rgProp[i] = {
-                    x: !i ? options.margins[0] : rgProp[i-1].x + rgProp[i-1].width + options.margins[0] + options.margins[1],
-                    width: nodeRect.right - nodeRect.left
+                    x: 0,
+                    y:0,
+                    width: 0,
+                    height: 0
                 };
-
 //                childNodes[i].style = Hammer.utils.extend(childNodes[i].style, gridStyle);
+
                 if(childNodes[i]){
                     for(var key in gridStyle){
                         childNodes[i].style[key] = gridStyle[key];
@@ -133,30 +114,18 @@
 
                 addClass(childNodes[i], options.childClassName);
                 translateByIndex(i, 0);
-            }*/
-
-            for(var i=0; i<totalChild; i++){
-                rgProp[i] = {
-                    x: 0,
-                    y: 0,
-                    width: 0,
-                    height: 0
-                }
-
-                if(childNodes[i]){
-                    for(var key in gridStyle){
-                        childNodes[i].style[key] = gridStyle[key];
-                    }
-                }
-                addClass(childNodes[i], options.childClassName);
             }
-            update();
-
+//            container.style = Hammer.utils.extend(container.style, containerStyle);
             if(container){
                 for(var key in containerStyle){
                     container.style[key] = containerStyle[key];
                 }
             }
+
+            console.log("rgProp",rgProp);
+
+            updateProps();
+
 
             hammer = Hammer(container,
                             {
@@ -171,43 +140,41 @@
             container.addEventListener('transitionend', transitionEevent, false);
         }
 
-        function update(){
-
+        function updateProps() {
             containerRect = container.getBoundingClientRect();
-            var nodeRect,
-                maxHeight = 0,
-                containerWidth = containerRect.right - containerRect.left,
-                childWidth = 0,
-                tempX,
-                tempY = options.margins[TOP];
+
+            var nodeRect, childWidth,
+                tempX, tempY = 0,
+                maxHeight= 0,
+                containerWidth = containerRect.right - containerRect.left;
 
             for(var i=0; i<totalChild; i++){
 
                 nodeRect = childNodes[i].getBoundingClientRect();
                 childWidth = nodeRect.right - nodeRect.left;
-                tempX = !i ? options.margins[LEFT] : rgProp[i-1].x + rgProp[i-1].width + options.margins[LEFT] + options.margins[RIGHT];
+                tempX = !i ? options.margins[0] : rgProp[i-1].x + rgProp[i-1].width + options.margins[0] + options.margins[1];
 
                 rgProp[i].width = childWidth;
                 rgProp[i].height = nodeRect.bottom - nodeRect.top;
 
                 maxHeight = (maxHeight >= rgProp[i].height) ? maxHeight : rgProp[i].height;
 
+                console.log("maxHeight", maxHeight);
                 if(childWidth + tempX > containerWidth){
-                    tempX = options.margins[LEFT];
-                    tempY += maxHeight + options.margins[TOP] + options.margins[BOTTOM];
+                    console.log("next row");
+                    rgProp[i].x = 0;
+                    tempY += maxHeight;
                 }
-                rgProp[i].x = tempX;
+                else{
+                    rgProp[i].x = tempX;
+                }
+
                 rgProp[i].y = tempY;
 
                 translateByIndex(i, 0);
             }
-
-            container.style.height = (rgProp[totalChild-1].y + maxHeight + options.margins[BOTTOM]) +"px";
-
-
-//            console.log("rgProp",rgProp);
         }
-
+        
 
         function transitionEnd(evt){
             if(dragging || evt.propertyName.search("transform")<0)
@@ -221,35 +188,27 @@
             draggingTarget = draggingTrgtIndex = false;
 
 //            if(draggingTarget === evt.target || dragging){return;}
-//            console.log("transitionEnd", evt.propertyName);
+            console.log("transitionEnd", evt.propertyName);
 
-            sortChilds();
+            var temp;
+            for(var i=0; i<totalChild; i++){
+                  for(var j=i+1; j<totalChild; j++){
+                      if(rgProp[i].x > rgProp[j].x){
 
+                          temp = childNodes[j];
+                          childNodes[j] = childNodes[i];
+                          childNodes[i] = temp;
 
+                          temp = rgProp[j];
+                          rgProp[j] = rgProp[i];
+                          rgProp[i] = temp;
+                      }
+                  }
+            }
             callback.call(this, { elements: childNodes });
         }
 
-        function sortChilds(){
-            var temp;
-            for(var i=0; i<totalChild; i++){
-                for(var j=i+1; j<totalChild; j++){
-
-                    if(rgProp[i].x > rgProp[j].x || rgProp[i].y > rgProp[j].y){
-
-                        temp = childNodes[j];
-                        childNodes[j] = childNodes[i];
-                        childNodes[i] = temp;
-
-                        temp = rgProp[j];
-                        rgProp[j] = rgProp[i];
-                        rgProp[i] = temp;
-                    }
-
-                }
-            }
-        }
-
-        function translateTo(_index, xPos ,_speed, yPos){
+        function translateTo(_index, xPos, yPos, _speed){
             var child = childNodes[_index];
             var style = child && child.style;
 
@@ -261,14 +220,14 @@
                         style.OTransitionDuration =
                             style.transitionDuration = ( _speed ? _speed :  _speed === 0 ? 0 : options.translateSpeed) + 'ms';
 
-            style.webkitTransform = 'translate(' + xPos + 'px, '+yPos+'px) ' + 'translateZ(0)';
+            style.webkitTransform = 'translate(' + xPos + 'px, '+ yPos +')' + 'translateZ(0)';
             style.msTransform =
                 style.MozTransform =
                     style.OTransform = 'translateX(' + xPos + 'px) translateY('+yPos+'px)';
         }
 
         function translateByIndex(_index, _speed) {
-            translateTo(_index, rgProp[_index].x,_speed, rgProp[_index].y);
+            translateTo(_index, rgProp[_index].x ,_speed);
         }
 
         function hasClass(ele,cls){
@@ -306,15 +265,13 @@
         }
 
 
-        function intersectRect(aX, aY, aW, aH, bX, bY, bW, bH) {
-            return (Math.abs(aX - bX) * 2 < (aW + bW)) && (Math.abs(aY - bY) * 2 < (aH + bH));
+        function intersectRect(l1, w1, l2, w2) {
+            return l1 <= w2+l2 && l2 <= w1+l1;
         }
 
         function getIndexCollideDraggingTarget(_draggingTargetIndex, _currentXPos){
             for(var i=0; i<totalChild; i++){
-                if(_draggingTargetIndex != i && intersectRect(_currentXPos, rgProp[_draggingTargetIndex].y, rgProp[_draggingTargetIndex].width + options.collideOffsetPx, rgProp[_draggingTargetIndex].height,
-                                                                rgProp[i].x, rgProp[i].y, rgProp[i].width + options.collideOffsetPx, rgProp[i].height))
-                {
+                if(_draggingTargetIndex != i && intersectRect(_currentXPos, rgProp[_draggingTargetIndex].width + options.collideOffsetPx, rgProp[i].x, rgProp[i].width + options.collideOffsetPx )){
                     return i;
                 }
             }
@@ -341,14 +298,14 @@
         function handleHammer(evt) {
 
             if(evt.target == container){
-//                console.log("only child nodes will response");
+                console.log("only child nodes will response");
                 return;
             }
 
             switch (evt.type)
             {
                 case "touch":
-//                    console.log("onTouch");
+                    console.log("onTouch");
                     dragging = true;
 //                    if(!dragging)
                     {
@@ -366,7 +323,7 @@
                     evt.gesture.preventDefault();
 
                     var currentXPos = draggingTrgtXPos + evt.gesture.deltaX;
-                    translateTo(draggingTrgtIndex, currentXPos, 0, draggingTrgtYPos);
+                    translateTo(draggingTrgtIndex, currentXPos, draggingTrgtYPos, 0);
 
                     var _collideIndex = getIndexCollideDraggingTarget(draggingTrgtIndex, currentXPos);
 
@@ -377,26 +334,25 @@
                     break;
 
                 case "release":
-//                    console.log("onRelease");
+                    console.log("onRelease");
                     removeClass(draggingTarget, options.draggingClassName);
                     translateByIndex(draggingTrgtIndex);
                     dragging = false;
                     break;
             }
         }
+
+
         init();
 
-        return {
-            update : update
-        }
+
 
     }
-    window.DragNSort = DragNSort;
+    window.TouchMovingGrids = TouchMovingGrids;
 
-//    TouchMovingGrids("contianer", function(data){
-//        console.log("callback.data",data.elements);
-//    });
+    TouchMovingGrids("contianer", function(data){
+        console.log("callback.data",data.elements);
+    });
 
 
 })(Hammer,window);
-

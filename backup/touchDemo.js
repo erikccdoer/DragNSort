@@ -1,47 +1,47 @@
 ;(function( Hammer, window, undefine){
     "use strict";
 
-/*
-    var doc = document,
-        body = doc.body;
+    /*
+     var doc = document,
+     body = doc.body;
 
 
-    var touchArea = doc.createElement("div");
-    var grid = touchArea.cloneNode(0);
-    var target, index;
+     var touchArea = doc.createElement("div");
+     var grid = touchArea.cloneNode(0);
+     var target, index;
 
-//    body.appendChild(touchArea);
-//    touchArea.appendChild(grid)
-    touchArea.id = "touchArea";
-    grid.className = "grid";
-    grid.style.left = "0px";
+     //    body.appendChild(touchArea);
+     //    touchArea.appendChild(grid)
+     touchArea.id = "touchArea";
+     grid.className = "grid";
+     grid.style.left = "0px";
 
 
-//    var hammertime = Hammer(touchArea)
-//                        .on("drag", function(evt) {
-//                                // this = dom
-//                                console.log("evt",evt);
-//                                target = evt.target;
-//                                if(target===grid){
-//                                    evt.gesture.preventDefault();
-//                                    if(!x){
-//                                        x = parseInt(target.style.left);
-//                                    }
-//                                    target.style.left = (x + evt.gesture.deltaX) + "px";
-//                                    console.log(x,target.style.left, evt.gesture.deltaX);
-//                                }
-//
-//
-//                        }).on("touch", function(evt){
-//                                console.log("evt",evt);
-//
-//                        }).on("release", function(evt){
-//                            console.log("evt",evt.type);
-//                            x = 0;
-//
-//                        });
+     //    var hammertime = Hammer(touchArea)
+     //                        .on("drag", function(evt) {
+     //                                // this = dom
+     //                                console.log("evt",evt);
+     //                                target = evt.target;
+     //                                if(target===grid){
+     //                                    evt.gesture.preventDefault();
+     //                                    if(!x){
+     //                                        x = parseInt(target.style.left);
+     //                                    }
+     //                                    target.style.left = (x + evt.gesture.deltaX) + "px";
+     //                                    console.log(x,target.style.left, evt.gesture.deltaX);
+     //                                }
+     //
+     //
+     //                        }).on("touch", function(evt){
+     //                                console.log("evt",evt);
+     //
+     //                        }).on("release", function(evt){
+     //                            console.log("evt",evt.type);
+     //                            x = 0;
+     //
+     //                        });
 
-*/
+     */
 
     var DragNSort = {
 
@@ -117,23 +117,23 @@
         function init(){
 
             /*var nodeRect;
-            for(var i=0; i<totalChild; i++){
-                nodeRect = childNodes[i].getBoundingClientRect();
-                rgProp[i] = {
-                    x: !i ? options.margins[0] : rgProp[i-1].x + rgProp[i-1].width + options.margins[0] + options.margins[1],
-                    width: nodeRect.right - nodeRect.left
-                };
+             for(var i=0; i<totalChild; i++){
+             nodeRect = childNodes[i].getBoundingClientRect();
+             rgProp[i] = {
+             x: !i ? options.margins[0] : rgProp[i-1].x + rgProp[i-1].width + options.margins[0] + options.margins[1],
+             width: nodeRect.right - nodeRect.left
+             };
 
-//                childNodes[i].style = Hammer.utils.extend(childNodes[i].style, gridStyle);
-                if(childNodes[i]){
-                    for(var key in gridStyle){
-                        childNodes[i].style[key] = gridStyle[key];
-                    }
-                }
+             //                childNodes[i].style = Hammer.utils.extend(childNodes[i].style, gridStyle);
+             if(childNodes[i]){
+             for(var key in gridStyle){
+             childNodes[i].style[key] = gridStyle[key];
+             }
+             }
 
-                addClass(childNodes[i], options.childClassName);
-                translateByIndex(i, 0);
-            }*/
+             addClass(childNodes[i], options.childClassName);
+             translateByIndex(i, 0);
+             }*/
 
             for(var i=0; i<totalChild; i++){
                 rgProp[i] = {
@@ -159,10 +159,10 @@
             }
 
             hammer = Hammer(container,
-                            {
-                                drag_lock_to_axis: true
-                            })
-                            .on("touch dragleft dragright release", handleHammer);
+                {
+                    drag_lock_to_axis: true
+                })
+                .on("touch dragleft dragright release", handleHammer);
 
             container.addEventListener('webkitTransitionEnd', transitionEevent, false);
             container.addEventListener('msTransitionEnd', transitionEevent, false);
@@ -205,7 +205,7 @@
             container.style.height = (rgProp[totalChild-1].y + maxHeight + options.margins[BOTTOM]) +"px";
 
 
-//            console.log("rgProp",rgProp);
+            console.log("rgProp",rgProp);
         }
 
 
@@ -221,7 +221,7 @@
             draggingTarget = draggingTrgtIndex = false;
 
 //            if(draggingTarget === evt.target || dragging){return;}
-//            console.log("transitionEnd", evt.propertyName);
+            console.log("transitionEnd", evt.propertyName);
 
             sortChilds();
 
@@ -233,8 +233,7 @@
             var temp;
             for(var i=0; i<totalChild; i++){
                 for(var j=i+1; j<totalChild; j++){
-
-                    if(rgProp[i].x > rgProp[j].x || rgProp[i].y > rgProp[j].y){
+                    if(rgProp[i].x > rgProp[j].x){
 
                         temp = childNodes[j];
                         childNodes[j] = childNodes[i];
@@ -244,7 +243,6 @@
                         rgProp[j] = rgProp[i];
                         rgProp[i] = temp;
                     }
-
                 }
             }
         }
@@ -313,7 +311,7 @@
         function getIndexCollideDraggingTarget(_draggingTargetIndex, _currentXPos){
             for(var i=0; i<totalChild; i++){
                 if(_draggingTargetIndex != i && intersectRect(_currentXPos, rgProp[_draggingTargetIndex].y, rgProp[_draggingTargetIndex].width + options.collideOffsetPx, rgProp[_draggingTargetIndex].height,
-                                                                rgProp[i].x, rgProp[i].y, rgProp[i].width + options.collideOffsetPx, rgProp[i].height))
+                    rgProp[i].x, rgProp[i].y, rgProp[i].width + options.collideOffsetPx, rgProp[i].height))
                 {
                     return i;
                 }
@@ -341,23 +339,23 @@
         function handleHammer(evt) {
 
             if(evt.target == container){
-//                console.log("only child nodes will response");
+                console.log("only child nodes will response");
                 return;
             }
 
             switch (evt.type)
             {
                 case "touch":
-//                    console.log("onTouch");
+                    console.log("onTouch");
                     dragging = true;
 //                    if(!dragging)
-                    {
-                        draggingTarget = toChildNode(evt.target);
-                        addClass(draggingTarget, options.draggingClassName);
-                        draggingTrgtIndex = indexOfChild(draggingTarget);
-                        draggingTrgtXPos = rgProp[draggingTrgtIndex].x;
-                        draggingTrgtYPos = rgProp[draggingTrgtIndex].y;
-                    }
+                {
+                    draggingTarget = toChildNode(evt.target);
+                    addClass(draggingTarget, options.draggingClassName);
+                    draggingTrgtIndex = indexOfChild(draggingTarget);
+                    draggingTrgtXPos = rgProp[draggingTrgtIndex].x;
+                    draggingTrgtYPos = rgProp[draggingTrgtIndex].y;
+                }
                     break;
 
                 case 'dragright':
@@ -377,7 +375,7 @@
                     break;
 
                 case "release":
-//                    console.log("onRelease");
+                    console.log("onRelease");
                     removeClass(draggingTarget, options.draggingClassName);
                     translateByIndex(draggingTrgtIndex);
                     dragging = false;
@@ -400,3 +398,12 @@
 
 })(Hammer,window);
 
+(function(){
+
+    var mysortable = DragNSort.horizontally("contianer",{margins:[0,10,10,0]}, function(data){
+        console.log("callback.data",data.elements);
+    });
+
+    console.log("mysortable",mysortable);
+
+})();
