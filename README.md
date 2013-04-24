@@ -43,3 +43,9 @@ var mysortable = DragNSort.horizontally(
 	console.log("callback.data",data.elements);
 });
 ```
+
+## Instance methods:
+```javascript
+	//update the positions of the grids for container's dimension changing.
+	mysortable.update();
+```
