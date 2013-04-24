@@ -46,6 +46,6 @@ var mysortable = DragNSort.horizontally(
 
 ## Instance methods:
 ```javascript
-	//update the positions of the grids for container's dimension changing.
+	//update the positions of the grids for changing dimension of the container.
 	mysortable.update();
 ```
