@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+    <title>DragNsort's demo and docs</title>
+    <link type="text/css" rel="stylesheet" href="css/normalize.css">
+    <link type="text/css" rel="stylesheet" href="css/main.css">
+    <style type="text/css">
+        #touchArea{
+            height: 300px;
+            background-color: #999999;
+            position: relative;
+        }
+        .grid{
+            position: absolute;
+            background-color: #08c;
+            width: 100px;
+            height: 200px;
+        }
+        #contianer,
+        #contianer2{
+            margin: 1em;
+            height: 30em;
+            width: 750px;
+            /*overflow: hidden;*/
+            background-color: #999;
+        }
+        .panel{
+            width: 128px;
+            height: 28em;
+            float: left;
+            outline: #111 solid 1px;
+            padding: 1em;
+            box-sizing: border-box;
+            background-color: yellow;
+            margin-right:10px;
+        }
+        .content{
+
+            background-color: #08c;
+            height: 100%;
+        }
+
+        .dragging{
+            z-index: 999;
+        }
+
+
+
+    </style>
+</head>
+<body>
+
+<h1>DragNsort's demo and docs:</h1>
+
+<h3>Docs:</h3>
+
+<pre>
+    ## Dependency:
+    [Hammer.js](http://eightmedia.github.io/hammer.js/)
+</pre>
+
+<pre>
+    ## Usage
+    DragNsort only needs to follow a simple pattern. Here is an example:
+
+    ``` html
+    &lt;div id='container'&gt;
+            &lt;div&gt;your contents&lt;/div&gt;
+            &lt;div&gt;your contents&lt;/div&gt;
+            &lt;div&gt;your contents&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;script type="text/javascript"&gt;
+        (function(){
+            var mysortable = DragNSort.horizontally("contianer",function(data){
+                console.log("callback.data",data.elements);
+            });
+        })();
+    &lt;/script&gt;
+
+    ```
+
+</pre>
+
+<pre>
+    ## options:
+    You can change the default settings by adding an second argument with options
+    -- childClassName : "e-grid"
+    -- draggingClassName : "dragging"
+    -- translateSpeed: 300  // in millisecond
+    -- collideOffsetPx: -60 // in px
+    -- margins: [0,10, 10, 0] // TOP RIGHT BOTTOM LEFT
+
+    Example:
+    var mysortable = DragNSort.horizontally("contianer",{margins:[0,10,10,0]}, function(data){
+        console.log("callback.data",data.elements);
+    });
+
+</pre>
+
+<h3>Demo:</h3>
+<div id="contianer">
+    <div class="panel">
+        <div class="content">
+            0
+        </div>
+    </div>
+    <div class="panel">
+        <div class="content">
+            1
+        </div>
+    </div>
+    <div class="panel" style="width: 250px;">
+        <div class="content">
+            2
+        </div>
+    </div>
+    <div class="panel">
+        <div class="content">
+            3
+        </div>
+    </div>
+    <div class="panel">
+        <div class="content">
+            4
+        </div>
+    </div>
+    <!--<div class="panel">-->
+    <!--<div class="content">-->
+    <!--5-->
+    <!--</div>-->
+    <!--</div>-->
+</div>
+
+<script type="text/javascript" src="js/hammer.js"></script>
+<script type="text/javascript" src="dragNsort-0.6.js"></script>
+
+<script type="text/javascript">
+    (function(){
+        var mysortable = DragNSort.horizontally("contianer",function(data){
+            console.log("callback.data",data.elements);
+        });
+    })();
+</script>
+</body>
+</html>
