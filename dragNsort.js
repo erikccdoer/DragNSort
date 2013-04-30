@@ -79,10 +79,11 @@
                 childClassName : "e-grid",
                 draggingClassName : "dragging",
                 translateSpeed: 300,
-                collideOffsetPx: -70,
+                collideOffsetPx: -0,
                 margins: [0,0, 0, 0],
                 onTap: undefine,
                 onDragTransform: "scale(1.1)",
+                minPxTriggerSwap: 80,
                 onDragEnd: undefine,
                 dragTimeout: 300
             },
@@ -99,7 +100,7 @@
             containerRect,
             totalChild = childNodes.length,
             rgProp = new Array(totalChild),
-            hammer, draggingTarget, draggingTrgtIndex, dragging, draggingTrgtXPos, draggingTrgtYPos;
+            hammer, draggingTarget, draggingTrgtIndex, dragging, draggingTrgtXPos, draggingTrgtYPos, lastSwapIndex, lastDragType;
 
         var transitionEevent = {
             handleEvent: function(event) {
@@ -158,6 +159,7 @@
                 addClass(childNodes[i], options.childClassName);
             }
             update();
+            sortChilds();
 
             if(container){
                 for(var key in containerStyle){
@@ -222,6 +224,11 @@
 
 
         function transitionEnd(evt){
+
+            var movedIndex = indexOfChild(evt.target);
+            if(movedIndex > -1){
+                rgProp[movedIndex].animating = false;
+            }
 
             if(dragging || evt.propertyName.search("transform")<0)
             {
@@ -336,12 +343,54 @@
 
         function getIndexCollideDraggingTarget(_draggingTargetIndex, _currentXPos){
 //            var offsetFactor = .45;
+            var x1,x2, y1, y2, w1, w2, h1, h2;
+
+            var minDis = 1e9;
+            var minDisIndex = -1;
+            var t;
             for(var i=0; i<totalChild; i++){
-                if(_draggingTargetIndex != i && intersectRect(_currentXPos, rgProp[_draggingTargetIndex].y, rgProp[_draggingTargetIndex].width + options.collideOffsetPx, rgProp[_draggingTargetIndex].height, rgProp[i].x, rgProp[i].y, rgProp[i].width + options.collideOffsetPx, rgProp[i].height))
+                if(_draggingTargetIndex != i){
+
+                    x1 = (rgProp[i].x + rgProp[i].width *.5);
+                    x2 = _currentXPos;
+                    y1 = (rgProp[i].y + rgProp[i].height *.5);
+                    y2 = (rgProp[_draggingTargetIndex].y + rgProp[_draggingTargetIndex].height *.5);
+
+                    t = Math.sqrt( (x2 - x1)*(x2 - x1) + (y2 - y1)*(y2 - y1) );
+                    if ( t < minDis){
+                        minDis = t;
+                        minDisIndex = i;
+                    }
+                }
+            }
+            if(minDis<options.minPxTriggerSwap && !rgProp[minDisIndex].animating){
+                return minDisIndex;
+            }
+            console.log("minDisIndex",minDisIndex);
+//            return minDisIndex;
+/*
+
+            for(var i=0; i<totalChild; i++)
+            {
+
+                console.log("i",i);
+                x1 = _currentXPos - options.margins[LEFT];
+                y1 = rgProp[_draggingTargetIndex].y - options.margins[TOP];
+                w1 = rgProp[_draggingTargetIndex].width  + options.collideOffsetPx;
+                h1 = rgProp[_draggingTargetIndex].height ;
+                x2 = rgProp[i].x - options.margins[LEFT];
+                y2 = rgProp[i].y - options.margins[TOP];
+                w2 = rgProp[i].width + options.collideOffsetPx;
+                h2 = rgProp[i].height ;
+
+                if(_draggingTargetIndex != i && intersectRect(x1, y1, w1, h1, x2, y2, w2, h2))
                 {
+//                    console.log(x1, y1, w1, h1, x2, y2, w2, h2);
                     return i;
                 }
             }
+*/
+
             return -1;
         }
 
@@ -382,6 +431,7 @@
                         }
                     break;
                 case "hold":
+//                case "touch":
                     dragging = true;
 //                    if(!dragging)
                         {
@@ -394,10 +444,14 @@
                             translateByIndex(draggingTrgtIndex);
 
                         }
+
+                    if(evt.gesture.touches.length>1){alert(2)}
+
                     break;
 
                 case 'dragright':
                 case 'dragleft':
+                    console.log("evt",evt);
                     if(!dragging){return;}
 
                     evt.gesture.preventDefault();
@@ -406,13 +460,22 @@
                     var currentXPos = draggingTrgtXPos + evt.gesture.deltaX;
                     translateTo(draggingTrgtIndex, currentXPos, 0, draggingTrgtYPos);
 
-                    var _collideIndex = getIndexCollideDraggingTarget(draggingTrgtIndex, currentXPos);
+                    var _collideIndex = getIndexCollideDraggingTarget(draggingTrgtIndex, currentXPos + rgProp[draggingTrgtIndex].width *.5);
 
-//                    if(_collideIndex > -1 && !rgProp[_collideIndex].animating){
                     if(_collideIndex > -1 ){
+//                        console.log("childs[",_collideIndex,"].animating", rgProp[_collideIndex].animating);
+
+//                        if(_collideIndex === lastSwapIndex && lastDragType === evt.type){return;}
+//                        if(rgProp[_collideIndex].animating){return;}
+
                         swapPosition(draggingTrgtIndex, _collideIndex);
+
                         translateByIndex(_collideIndex);
                         rgProp[_collideIndex].animating = true;
+
+//                        lastSwapIndex = _collideIndex;
+//                        lastDragType = evt.type;
+
                     }
                     break;
 

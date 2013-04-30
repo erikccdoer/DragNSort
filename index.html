@@ -20,9 +20,11 @@
         }
         #contianer,
         #contianer2{
-            margin: 1em;
+            /*margin: 1em;*/
             height: 30em;
-            width: 750px;
+            /*width: 750px;*/
+            width: 100%;
+            box-sizing: border-box;
             /*overflow: hidden;*/
             background-color: #999;
         }
@@ -30,7 +32,7 @@
             width: 128px;
             height: 28em;
             float: left;
-            outline: #111 solid 1px;
+            /*outline: #111 solid 1px;*/
             padding: 1em;
             box-sizing: border-box;
             background-color: yellow;
@@ -119,6 +121,12 @@
             console.log("callback",this,data.elements);
 
         });
+
+
+
+        window.onresize = function(event) {
+            mysortable.update();
+        }
 
     })();
 </script>
