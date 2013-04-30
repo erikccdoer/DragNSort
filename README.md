@@ -32,6 +32,10 @@ You can change the default settings by adding an second argument with options
 *  translateSpeed: 300  // in millisecond
 *  collideOffsetPx: -60 // in px
 *  margins: [0,10, 10, 0] // TOP RIGHT BOTTOM LEFT
+*  onDragTransform: "scale(1.1)"
+*  dragTimeout: 300 //in millisecond
+*  onTap: undefine // function(event){...}
+*  onDragEnd: undefine // as well as callback: function(data){...}
 
 Example:
 ```javascript

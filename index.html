@@ -46,59 +46,21 @@
             z-index: 999;
         }
 
+        body{
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
 
 
     </style>
 </head>
 <body>
 
-<h1>DragNsort's demo and docs:</h1>
-
-<h3>Docs:</h3>
-
-<pre>
-    ## Dependency:
-    [Hammer.js](http://eightmedia.github.io/hammer.js/)
-</pre>
-
-<pre>
-    ## Usage
-    DragNsort only needs to follow a simple pattern. Here is an example:
-
-    ``` html
-    &lt;div id='container'&gt;
-            &lt;div&gt;your contents&lt;/div&gt;
-            &lt;div&gt;your contents&lt;/div&gt;
-            &lt;div&gt;your contents&lt;/div&gt;
-    &lt;/div&gt;
-
-    &lt;script type="text/javascript"&gt;
-        (function(){
-            var mysortable = DragNSort.horizontally("contianer",function(data){
-                console.log("callback.data",data.elements);
-            });
-        })();
-    &lt;/script&gt;
-
-    ```
-
-</pre>
-
-<pre>
-    ## options:
-    You can change the default settings by adding an second argument with options
-    -- childClassName : "e-grid"
-    -- draggingClassName : "dragging"
-    -- translateSpeed: 300  // in millisecond
-    -- collideOffsetPx: -60 // in px
-    -- margins: [0,10, 10, 0] // TOP RIGHT BOTTOM LEFT
-
-    Example:
-    var mysortable = DragNSort.horizontally("contianer",{margins:[0,10,10,0]}, function(data){
-        console.log("callback.data",data.elements);
-    });
-
-</pre>
 
 <h3>Demo:</h3>
 <div id="contianer">
@@ -133,15 +95,31 @@
     <!--</div>-->
     <!--</div>-->
 </div>
-
+<!--#include virtual="include/navigation.html"-->
 <script type="text/javascript" src="js/hammer.js"></script>
-<script type="text/javascript" src="dragNsort.min.js"></script>
+<!--<script type="text/javascript" src="dragNsort-0.6.1.js"></script>-->
+<script type="text/javascript" src="dragNsort.js"></script>
+<!--<script type="text/javascript" src="dragNsort.min.js"></script>-->
 
 <script type="text/javascript">
     (function(){
-        var mysortable = DragNSort.horizontally("contianer",function(data){
-            console.log("callback.data",data.elements);
+//        var mysortable = DragNSort.horizontally("contianer",function(data){
+//            console.log("callback.data",data.elements);
+//        });
+
+        var mysortable = DragNSort.horizontally("contianer",{
+
+            margins: [10,10,0,10],
+            onTap:function(evt) {
+                console.log("ontap", this, evt);
+
+            }
+
+        },function(data){
+            console.log("callback",this,data.elements);
+
         });
+
     })();
 </script>
 </body>

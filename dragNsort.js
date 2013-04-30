@@ -47,11 +47,14 @@
 
         horizontally: function(elem, param1, param2)
         {
+
             if(typeof(param1) === "function"){
-                return TouchMovingGrids(elem, null,param1);
+
+                return TouchMovingGrids(elem, {onDragEnd: param1});
             }
             else{
-                return TouchMovingGrids(elem,param1,param2);
+                param1.onDragEnd = param2;
+                return TouchMovingGrids(elem,param1);
             }
 
         }
@@ -59,7 +62,7 @@
     }
 
 
-    function TouchMovingGrids(elem, _options ,callback){
+    function TouchMovingGrids(elem, _options){
 
         var TOP = 0,
             RIGHT = 1,
@@ -76,8 +79,12 @@
                 childClassName : "e-grid",
                 draggingClassName : "dragging",
                 translateSpeed: 300,
-                collideOffsetPx: -60,
-                margins: [0,0, 0, 0]
+                collideOffsetPx: -70,
+                margins: [0,0, 0, 0],
+                onTap: undefine,
+                onDragTransform: "scale(1.1)",
+                onDragEnd: undefine,
+                dragTimeout: 300
             },
             doc = document,
             container = doc.getElementById(elem),
@@ -160,9 +167,12 @@
 
             hammer = Hammer(container,
                 {
-                    drag_lock_to_axis: true
+                    drag_lock_to_axis: true,
+                    hold_timeout: options.dragTimeout
                 })
-                .on("touch dragleft dragright release", handleHammer);
+                .on("touch dragleft dragright release hold tap", handleHammer)
+//                .on("hold", handleOnHold)
+                ;
 
             container.addEventListener('webkitTransitionEnd', transitionEevent, false);
             container.addEventListener('msTransitionEnd', transitionEevent, false);
@@ -199,7 +209,9 @@
                 rgProp[i].x = tempX;
                 rgProp[i].y = tempY;
 
-                translateByIndex(i, 0);
+                rgProp[i].animating = false;
+
+                translateByIndex(i, 1);
             }
 
             container.style.height = (rgProp[totalChild-1].y + maxHeight + options.margins[BOTTOM]) +"px";
@@ -210,6 +222,7 @@
 
 
         function transitionEnd(evt){
+
             if(dragging || evt.propertyName.search("transform")<0)
             {
                 return;
@@ -218,16 +231,26 @@
                 return;
             }
 
+//            removeAddiontionalStyle(draggingTrgtIndex);
+
             draggingTarget = draggingTrgtIndex = false;
+
+
 
 //            if(draggingTarget === evt.target || dragging){return;}
 //            console.log("transitionEnd", evt.propertyName);
 
             sortChilds();
 
+            if(options.onDragEnd){
+                options.onDragEnd.call(container, { elements: childNodes });
+            }
 
-            callback.call(this, { elements: childNodes });
         }
+
+//        function removeAddiontionalStyle(_index){
+//
+//        }
 
         function sortChilds(){
             var temp;
@@ -253,6 +276,7 @@
             var child = childNodes[_index];
             var style = child && child.style;
 
+//            if (!style || rgProp[_index].animating){return;}
             if (!style){return;}
 
             style.webkitTransitionDuration =
@@ -261,10 +285,10 @@
                         style.OTransitionDuration =
                             style.transitionDuration = ( _speed ? _speed :  _speed === 0 ? 0 : options.translateSpeed) + 'ms';
 
-            style.webkitTransform = 'translate(' + xPos + 'px, '+yPos+'px) ' + 'translateZ(0)';
+            style.webkitTransform = 'translate(' + xPos + 'px, '+yPos+'px) ' + /*'translateZ(0) ' +*/ (dragging && draggingTrgtIndex === _index ? options.onDragTransform : "" );
             style.msTransform =
                 style.MozTransform =
-                    style.OTransform = 'translateX(' + xPos + 'px) translateY('+yPos+'px)';
+                    style.OTransform = 'translateX(' + xPos + 'px) translateY('+yPos+'px) ' + (dragging && draggingTrgtIndex === _index ? options.onDragTransform : "" );
         }
 
         function translateByIndex(_index, _speed) {
@@ -311,9 +335,9 @@
         }
 
         function getIndexCollideDraggingTarget(_draggingTargetIndex, _currentXPos){
+//            var offsetFactor = .45;
             for(var i=0; i<totalChild; i++){
-                if(_draggingTargetIndex != i && intersectRect(_currentXPos, rgProp[_draggingTargetIndex].y, rgProp[_draggingTargetIndex].width + options.collideOffsetPx, rgProp[_draggingTargetIndex].height,
-                    rgProp[i].x, rgProp[i].y, rgProp[i].width + options.collideOffsetPx, rgProp[i].height))
+                if(_draggingTargetIndex != i && intersectRect(_currentXPos, rgProp[_draggingTargetIndex].y, rgProp[_draggingTargetIndex].width + options.collideOffsetPx, rgProp[_draggingTargetIndex].height, rgProp[i].x, rgProp[i].y, rgProp[i].width + options.collideOffsetPx, rgProp[i].height))
                 {
                     return i;
                 }
@@ -347,43 +371,62 @@
 
             switch (evt.type)
             {
-                case "touch":
-//                    console.log("onTouch");
+                case "tap":
+                        if(dragging){
+                            evt.gesture.preventDefault();
+                            evt.gesture.stopPropagation();
+                            return;
+                        }
+                        if(options.onTap){
+                            options.onTap.call(toChildNode(evt.target),evt);
+                        }
+                    break;
+                case "hold":
                     dragging = true;
 //                    if(!dragging)
-                {
-                    draggingTarget = toChildNode(evt.target);
-                    addClass(draggingTarget, options.draggingClassName);
-                    draggingTrgtIndex = indexOfChild(draggingTarget);
-                    draggingTrgtXPos = rgProp[draggingTrgtIndex].x;
-                    draggingTrgtYPos = rgProp[draggingTrgtIndex].y;
-                }
+                        {
+
+                            draggingTarget = toChildNode(evt.target);
+                            addClass(draggingTarget, options.draggingClassName);
+                            draggingTrgtIndex = indexOfChild(draggingTarget);
+                            draggingTrgtXPos = rgProp[draggingTrgtIndex].x;
+                            draggingTrgtYPos = rgProp[draggingTrgtIndex].y;
+                            translateByIndex(draggingTrgtIndex);
+
+                        }
                     break;
 
                 case 'dragright':
                 case 'dragleft':
                     if(!dragging){return;}
+
                     evt.gesture.preventDefault();
+                    evt.gesture.stopPropagation();
 
                     var currentXPos = draggingTrgtXPos + evt.gesture.deltaX;
                     translateTo(draggingTrgtIndex, currentXPos, 0, draggingTrgtYPos);
 
                     var _collideIndex = getIndexCollideDraggingTarget(draggingTrgtIndex, currentXPos);
 
-                    if(_collideIndex > -1){
+//                    if(_collideIndex > -1 && !rgProp[_collideIndex].animating){
+                    if(_collideIndex > -1 ){
                         swapPosition(draggingTrgtIndex, _collideIndex);
                         translateByIndex(_collideIndex);
+                        rgProp[_collideIndex].animating = true;
                     }
                     break;
 
                 case "release":
 //                    console.log("onRelease");
+                    if(!dragging){return;}
+                    dragging = false;
                     removeClass(draggingTarget, options.draggingClassName);
                     translateByIndex(draggingTrgtIndex);
-                    dragging = false;
+
                     break;
             }
         }
+
         init();
 
         return {
