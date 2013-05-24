@@ -20,19 +20,10 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/index.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="35" column="25" selection-start="1045" selection-end="1045" vertical-scroll-proportion="-16.25">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="dragNsort.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/dragNsort.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="459" column="75" selection-start="15467" selection-end="15473" vertical-scroll-proportion="0.42179263">
+            <state line="22" column="47" selection-start="597" selection-end="605" vertical-scroll-proportion="0.33277592">
               <folding />
             </state>
           </provider>
@@ -93,6 +84,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -127,7 +119,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -203,9 +194,9 @@
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977587" sideWeight="0.4978355" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32977587" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20010673" sideWeight="0.41488278" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20864461" sideWeight="0.47298676" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32924226" sideWeight="0.6625892" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20010673" sideWeight="0.24159022" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20864461" sideWeight="0.18348624" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3991462" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.26845637" sideWeight="0.19210246" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.33639145" sideWeight="0.310032" order="10" side_tool="true" content_ui="tabs" />
@@ -278,6 +269,27 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/dragNsort.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="416" column="13" selection-start="13862" selection-end="13862" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dragNsort.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="459" column="75" selection-start="15473" selection-end="15473" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dragNsort.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="459" column="75" selection-start="15473" selection-end="15473" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="97" column="49" selection-start="2210" selection-end="2210" vertical-scroll-proportion="0.0">
@@ -308,11 +320,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/js/hammer.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1061" column="44" selection-start="33840" selection-end="33852" vertical-scroll-proportion="-612.11536">
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
+        <state line="1061" column="44" selection-start="33840" selection-end="33852" vertical-scroll-proportion="-612.11536" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
@@ -324,14 +332,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="25" selection-start="1045" selection-end="1045" vertical-scroll-proportion="-16.25">
+        <state line="35" column="25" selection-start="1045" selection-end="1045" vertical-scroll-proportion="0.65">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/dragNsort.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="459" column="75" selection-start="15467" selection-end="15473" vertical-scroll-proportion="0.42179263">
+        <state line="22" column="47" selection-start="597" selection-end="605" vertical-scroll-proportion="0.33277592">
           <folding />
         </state>
       </provider>

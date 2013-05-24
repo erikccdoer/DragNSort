@@ -363,10 +363,11 @@
                     }
                 }
             }
-            if(minDis<options.minPxTriggerSwap && !rgProp[minDisIndex].animating){
+            if(minDis<options.minPxTriggerSwap /*&& !rgProp[minDisIndex].animating*/)
+            {
                 return minDisIndex;
             }
-            console.log("minDisIndex",minDisIndex);
+//            console.log("minDisIndex",minDisIndex);
 //            return minDisIndex;
 /*
 
@@ -413,8 +414,9 @@
 
         function handleHammer(evt) {
 
-            if(evt.target == container){
-//                console.log("only child nodes will response");
+            if(evt.target == container)
+            {
+
                 return;
             }
 
@@ -451,7 +453,7 @@
 
                 case 'dragright':
                 case 'dragleft':
-                    console.log("evt",evt);
+//                    console.log("evt",evt);
                     if(!dragging){return;}
 
                     evt.gesture.preventDefault();
@@ -481,10 +483,14 @@
 
                 case "release":
 //                    console.log("onRelease");
+
+
                     if(!dragging){return;}
                     dragging = false;
                     removeClass(draggingTarget, options.draggingClassName);
                     translateByIndex(draggingTrgtIndex);
+
+
 
                     break;
             }
