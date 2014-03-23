@@ -1,6 +1,6 @@
 ## Demo:
 ===================================
-*[Demo in jsdo.it ( http://jsdo.it/Erik/uArR)](http://jsdo.it/Erik/uArR ).*
+*[Demo in jsdo.it ( http://jsdo.it/erik/uArR)](http://jsdo.it/erik/uArR ).*
 
 ## Dependency:
 [Hammer.js](http://eightmedia.github.io/hammer.js/)
