@@ -1,4 +1,6 @@
-## Demo:
+#Use [Sortable](https://github.com/RubaXa/Sortable)] insetad of TouchDragNSort
+
+## Demo;
 ===================================
 *[Demo in jsdo.it ( http://jsdo.it/erik/uArR)](http://jsdo.it/erik/uArR ).*
 
