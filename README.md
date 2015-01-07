@@ -1,4 +1,4 @@
-#Use [Sortable](https://github.com/RubaXa/Sortable)] insetad of TouchDragNSort
+#Use [Sortable](https://github.com/RubaXa/Sortable) insetad of TouchDragNSort
 
 ## Demo;
 ===================================
